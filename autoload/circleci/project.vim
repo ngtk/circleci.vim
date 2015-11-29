@@ -2,9 +2,10 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! circleci#project#get_recent_builds(username, reponame, ...) abort
+  let path = s:base_path(a:username, a:reponame)
   if exists(a:1)
     let branch = a:1
-    let path = s:base_path(a:username, a:reponame) . '/tree/' . branch
+    let path .= '/tree/' . branch
   endif
   let response = circleci#call_api(path, {})
   return webapi#json#decode(response.content)
