@@ -5,7 +5,8 @@ function! circleci#project#get_recent_builds(username, reponame, ...) abort
   let path = s:base_path(a:username, a:reponame)
   if exists('a:1')
     let branch = a:1
-    let path .= '/tree/' . branch
+    let branch_url_encoded = webapi#http#encodeURIComponent(branch)
+    let path .= '/tree/' . branch_url_encoded
   endif
   let response = circleci#call_api(path, {})
   return webapi#json#decode(response.content)
