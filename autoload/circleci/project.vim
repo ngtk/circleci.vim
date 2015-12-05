@@ -3,7 +3,7 @@ set cpo&vim
 
 function! circleci#project#get_recent_builds(username, reponame, ...) abort
   let path = s:base_path(a:username, a:reponame)
-  if exists(a:1)
+  if exists('a:1')
     let branch = a:1
     let path .= '/tree/' . branch
   endif
